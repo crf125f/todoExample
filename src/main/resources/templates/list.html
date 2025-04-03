@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('ToDo一覧', ~{::section})}">
+<section>
+
+    <form th:action="@{/todos}" method="post" th:object="${todo}">
+        <label>タイトル：</label>
+        <input type="text" th:field="*{title}" />
+        <button type="submit">追加</button>
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red;"></div>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>タイトル</th>
+            <th>完了？</th>
+            <th>編集</th>
+            <th>削除</th>
+        </tr>
+        <tr th:each="todo : ${todos}">
+            <td th:text="${todo.id}"></td>
+            <td th:text="${todo.title}"></td>
+            <td>
+                <form th:action="@{'/todos/' + ${todo.id} + '/toggle'}" method="post">
+                    <button type="submit" th:text="${todo.done} ? '✔' : '×'" style="border: none; background: none; cursor: pointer;"></button>
+                </form>
+            </td>
+            <td>
+                <a th:href="@{'/todos/' + ${todo.id} + '/edit'}">編集</a>
+            </td>
+            <td>
+                <form th:action="@{'/todos/' + ${todo.id} + '/delete'}" method="post">
+                    <button type="submit">削除</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</section>
+</html>

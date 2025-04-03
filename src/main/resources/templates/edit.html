@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('ToDo編集', ~{::section})}">
+<section>
+    <h2>ToDo編集</h2>
+
+    <form th:action="@{'/todos/' + ${todo.id} + '/edit'}" method="post" th:object="${todo}">
+        <label>タイトル：</label>
+        <input type="text" th:field="*{title}"/>
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red;"></div>
+        <br/>
+
+        <label>完了？：</label>
+        <input type="checkbox" th:field="*{done}"/>
+        <br/><br/>
+
+        <button type="submit">更新</button>
+        <a th:href="@{/todos}" class="btn-link">一覧に戻る</a>
+    </form>
+</section>
+</html>
