@@ -65,6 +65,22 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- Flyway コアライブラリ -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>11.5.0</version>
+		</dependency>
+
+		<!-- my sqlドライバ -->
+		<dependency>
+			<groupId>com.mysql</groupId> <!-- ✅ 修正ポイント -->
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.0.33</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

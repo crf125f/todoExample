@@ -1,0 +1,24 @@
+<!-- stats.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('チームごとのToDo件数', ~{::section})}">
+
+<section>
+    <h2>チームごとのToDo件数</h2>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>チーム名</th>
+            <th>ToDo件数</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="stat : ${stats}">
+            <td th:text="${stat.teamName}">チーム名</td>
+            <td th:text="${stat.todoCount}">件数</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+</html>

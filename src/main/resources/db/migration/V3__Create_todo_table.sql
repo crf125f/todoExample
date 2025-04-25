@@ -1,0 +1,8 @@
+CREATE TABLE todo (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    done BOOLEAN DEFAULT FALSE,
+    assignee_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (assignee_id) REFERENCES users(id)
+);

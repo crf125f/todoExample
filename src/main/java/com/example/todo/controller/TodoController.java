@@ -20,6 +20,7 @@ import com.example.todo.constant.ViewNames;
 import com.example.todo.constant.MessageConstants;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TodoController {
@@ -151,4 +152,26 @@ public class TodoController {
         return "redirect:" + RouteConstants.TODOS;
     }
 
+    /**
+     * チームごとのToDo件数を統計として表示する画面処理
+     * - サービス層の集計メソッドを呼び出し
+     * - 結果をログに出力し、HTMLにも渡す（テンプレートは未実装ならログ確認でOK）
+     *
+     * URL: /todos/stats
+     */
+    @GetMapping(RouteConstants.TODOS_STATS)
+    public String showTodoStats(Model model) {
+        List<Map<String, Object>> stats = todoService.getTodoCountByTeam();
+
+        // ログ出力：チーム名と件数を表示
+        stats.forEach(stat -> {
+            log.info("チーム: {}, 件数: {}", stat.get("teamName"), stat.get("todoCount"));
+        });
+
+        // HTMLテンプレートに渡す（画面があれば表示可能）
+        model.addAttribute("stats", stats);
+
+        // Thymeleaf側のテンプレート（未作成の場合はログ出力で確認）
+        return ViewNames.STATS;
+    }
 }

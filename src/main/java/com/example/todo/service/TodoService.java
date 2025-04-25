@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TodoService {
@@ -38,6 +39,17 @@ public class TodoService {
         log.info("取得件数: {}", dtoList.size());
         return dtoList;
     }
+
+    /**
+     * チームごとのToDo件数を取得する
+     * - Repository層のSQL実行メソッドを呼び出す
+     *
+     * @return チームごとのToDo件数のリスト（teamName, todoCount）
+     */
+    public List<Map<String, Object>> getTodoCountByTeam() {
+        return todoRepository.countTodosByTeam();
+    }
+
 
     /**
      * 新規Todoを追加（DTO → Entity に変換して保存）
